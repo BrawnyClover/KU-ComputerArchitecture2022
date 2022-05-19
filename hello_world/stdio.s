@@ -31,12 +31,13 @@ scan
 			ldmfd	sp!, {pc}
 			
 print_char
-			stmfd 	sp!, {r0, lr}
-			adr		r1, char
-			strb	r0, [r1]
-			mov		r0, #3
+			stmfd 	sp!, {r0, lr} ;스택에 r0와 lr 레지스터를 저장하고 sp를 그만큼 감소시킨다.
+			adr		r1, char ; char의 주소 값을 r1에 저장
+			strb	r0, [r1] ; r1이 가리키는 곳에 r0값을 저장
+			mov		r0, #3 ; SYS_WRITEC
 			swi		0x123456
-			ldmfd	sp!, {r0, pc}
+			ldmfd	sp!, {r0, pc} ;스택에서 r0와 pc를 복원하고 sp를 그만큼 증가시킨다.
+
 			
 char 		DCB		0
             
