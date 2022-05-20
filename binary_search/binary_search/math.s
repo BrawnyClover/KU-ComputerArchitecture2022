@@ -1,7 +1,0 @@
-    AREA      text,CODE
-                                        
-
-            
-
-
-    END
