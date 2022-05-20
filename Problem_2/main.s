@@ -1,4 +1,5 @@
-; Problem 2
+; Problem 2 : Binary Search
+; 2018170914 손명준
 
         AREA text, CODE
         
@@ -9,7 +10,7 @@
                 
 
 start
-        mov r9, #0xa ; *10을 해주기 위해 필요함
+        mov r9, #0xa            ; *10을 해주기 위해 필요함
         b get_input
 
 get_input
@@ -32,6 +33,8 @@ input_cnt
         add r2, r2, #2          ; add 2 byte to weight
         mov r5, #0              ; 다음 입력을 위해 r5 초기화
         cmp r2, #20             ; r2 == 20? -> 9 + 1개가 입력되었는가?
+                                ; 9개 : 정렬된 숫자들
+                                ; 1개 : 찾고자 하는 숫자
         beq binary_search
         
         b get_input             ; 아니면 다시 입력 대기
@@ -94,7 +97,7 @@ print_dec
 
 push_dec                   
                                 ; 0x00123 꼴의 형태를 1, 2, 3으로 분리해서 메모리에 저장
-    mov r4, r8                  ; 분리할 대상 숫자로 r8의 값을 저장
+    mov r4, r11                  ; 분리할 대상 숫자로 r11의 값을 저장
     mov r5, #10                 ; 10진수로 분리할 것이기 때문에 나누는 수로 10을 저장
 
     stmfd 	sp!, {lr}       ; 현재 lr값 stack에 저장
@@ -155,6 +158,7 @@ stop_divide
     bx lr
 
 finish
+        mov r11, r8         ; print_dec 분기에서 출력될 숫자로 r8 저장
         bl print_dec
 
         mov       r0, #0x18
