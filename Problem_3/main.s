@@ -1,4 +1,5 @@
 ; Problem 3 : Greedy
+; 2018170914 손명준
 
             AREA text, CODE
             ; This section is called "text", and contains code
@@ -49,7 +50,7 @@ greedy_calc
                                 ; r5 : 나눌 수
         mov r6, #0              ; r6 : cnt
                                 ; r7 ~ r8 : reserved
-                                ; r9 : print_dec로 출력될 숫자
+                                ; r9 : reserved
                                 ; r10 : 1 short int값이 저장될 메모리의 시작점
                                 ; r11 : mod 연산 결과, 몫
                                 ; r12 : mod 연산 결과, 나머지
@@ -96,53 +97,56 @@ finish_fail
 
 
 
-print_dec
-        stmfd 	sp!, {lr}
-        mov r5, #10
-        adr r10, array
-        mov r2, #0
-        bl push_dec
-        bl pop_dec
-
-        ldmfd	sp!, {pc}
-        bx lr
-
-push_dec
-    
-    mov r4, r9
-
+print_dec 
+                                ; r8에 있는 값을 출력
     stmfd 	sp!, {lr}
-    bl mod
-    ldmfd	sp!, {lr}
-    
-    mov r0, r12
-    add r0, r0, #'0'
 
-    strh r0, [r10, r2]
-    add r2, r2, #2
+    adr r10, array              ; 1 digit을 저장할 메모리 주소
+    mov r2, #0                  ; offset = 0
+    bl push_dec
+    bl pop_dec
     
-    cmp r11, #0
-    bne push_dec
+    ldmfd	sp!, {pc}
+    bx lr                       ; lr로 복귀
+
+push_dec                   
+                                ; 0x00123 꼴의 형태를 1, 2, 3으로 분리해서 메모리에 저장
+    mov r4, r11                  ; 분리할 대상 숫자로 r11의 값을 저장
+    mov r5, #10                 ; 10진수로 분리할 것이기 때문에 나누는 수로 10을 저장
+
+    stmfd 	sp!, {lr}       ; 현재 lr값 stack에 저장
+    bl mod                      
+    ldmfd	sp!, {lr}       ; lr값을 stack에서 복원
     
-    bx lr
+    mov r0, r12                 ; 나머지 값을 r0에 저장
+    add r0, r0, #'0'            ; int -> char
+
+    strh r0, [r10, r2]          ; 1 digit을 메모리에 저장
+    add r2, r2, #2              ; offset 증가
+    
+    cmp r11, #0                 ; 몫이 0이 아니면
+    bne push_dec                ; 다시 digit 분리
+    
+    bx lr                       ; lr로 복귀
 
 pop_dec
+                                ; 메모리에 저장된 digit값을 거꾸로 출력
     stmfd 	sp!, {lr}
     
-    sub r2, r2, #2
-    ldrh r0, [r10, r2]
+    sub r2, r2, #2              ; offset 감소
+    ldrh r0, [r10, r2]          ; 메모리에 저장된 digit 값 불러오기
     
-    bl print_char
+    bl print_char               ; 1 digit 출력
 
-    cmp r2, #0
-    BGT pop_dec
+    cmp r2, #0                  ; offset > 0 ?
+    BGT pop_dec                 ; 다음 digit 출력
 
     ldmfd	sp!, {lr}
     bx lr
 
 
 finish
-        mov r9, r6 ; print_dec 분기에서 출력될 숫자로 cnt 저장
+        mov r11, r6 ; print_dec 분기에서 출력될 숫자로 cnt 저장
         bl print_dec
 
         mov       r0, #0x18
