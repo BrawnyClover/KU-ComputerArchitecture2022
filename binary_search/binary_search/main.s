@@ -40,7 +40,7 @@ input_cnt
 
 binary_search
         mov r1, #0 ; st = 0
-        mov r2, #16 ; ed = 16
+        mov r2, #8 ; ed = 16
         ; r4 : 나누어지는 수
         ; r5 : 나누는 수
         ldrh r6, [r10, #18] ; target, 10번째로 입력받은 수
@@ -54,20 +54,21 @@ binary_search_loop
         mov r5, #2
         bl mod
         mov r7, r11 ; md = md / 2
+        mul r9, r7, r5 ; offset = md * 2
 
-        ldrh r8, [r10, r7] ; num[md]
+        ldrh r8, [r10, r9] ; num[md]
         cmp r6, r8
         BEQ finish
         BLT binary_search_left
         BGT binary_search_right
 
 binary_search_left
-        sub r7, r7, #2
+        sub r7, r7, #1
         mov r2, r7 ; st ~ md-1
         b binary_search_loop
 
 binary_search_right
-        add r7, r7, #2
+        add r7, r7, #1
         mov r1, r7 ; md+1 ~ ed
         b binary_search_loop
         
@@ -86,6 +87,7 @@ print_dec ; r11에 있는 값을 출력
 push_dec
     
     mov r4, r11
+    mov r5, #10
 
     stmfd 	sp!, {lr}
     bl mod
