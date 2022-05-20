@@ -1,4 +1,5 @@
 ; Problem 1 : Prime number
+; 2018170914 손명준
 
             AREA text, CODE
             ; This section is called "text", and contains code
