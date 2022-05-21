@@ -73,13 +73,11 @@ binary_search_loop
         BGT binary_search_right ; target이 불러온 값보다 크면 오른쪽 부분 탐색
 
 binary_search_left              ; 왼쪽 부분 탐색
-        sub r7, r7, #1          ; md = md - 1
-        mov r2, r7              ; 탐색 영역 : st ~ md - 1
+        sub r2, r7, #1          ; ed = md - 1
         b binary_search_loop
 
 binary_search_right             ; 오른쪽 부분 탐색
-        add r7, r7, #1          ; md = md + 1
-        mov r1, r7              ; 탐색 영역 : md + 1 ~ ed  
+        add r1, r7, #1          ; st = md + 1
         b binary_search_loop
         
 
