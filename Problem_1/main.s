@@ -103,7 +103,7 @@ is_not_prime
 
 
 print_dec 
-                                ; r8에 있는 값을 출력
+                                ; r11에 있는 값을 출력
     stmfd 	sp!, {lr}
 
     adr r10, array              ; 1 digit을 저장할 메모리 주소

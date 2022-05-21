@@ -84,7 +84,7 @@ binary_search_right             ; 오른쪽 부분 탐색
         
 
 print_dec 
-                                ; r8에 있는 값을 출력
+                                ; r11에 있는 값을 출력
     stmfd 	sp!, {lr}
 
     adr r10, array              ; 1 digit을 저장할 메모리 주소
@@ -97,7 +97,7 @@ print_dec
 
 push_dec                   
                                 ; 0x00123 꼴의 형태를 1, 2, 3으로 분리해서 메모리에 저장
-    mov r4, r11                  ; 분리할 대상 숫자로 r11의 값을 저장
+    mov r4, r11                 ; 분리할 대상 숫자로 r11의 값을 저장
     mov r5, #10                 ; 10진수로 분리할 것이기 때문에 나누는 수로 10을 저장
 
     stmfd 	sp!, {lr}       ; 현재 lr값 stack에 저장
