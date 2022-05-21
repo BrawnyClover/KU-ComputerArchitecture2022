@@ -62,18 +62,19 @@ calc_prime_cnt
 
 
 adjust_start_num
-                                ; n이 2보다 작거나 같으면
+                                ; n이 2보다 작으면
                                 ; 3부터 시작하도록 n값을 변경
         mov r4, #3
-        add r7, r7, #1          ; cnt = 1, 2가 소수이기 때문
+        add r7, r7, #1          ; cnt = 1로 초기화. 2가 소수이기 때문 
+
         b outer_loop
 
 outer_loop
+        cmp r4, r3              ; if i == m
+        BGT finish              ; break
+
         mov r5, #2              ; j = 2
         bl inner_loop
-
-        cmp r4, r3              ; if i == m
-        beq finish              ; break
         
         add r4, r4, #1          ; i = i + 1
         b outer_loop            ; continue
