@@ -43,7 +43,7 @@ binary_search
                                 ; ===<Register Table>===
                                 ; r0 : reserved
         mov r1, #0              ; r1 : st = 0
-        mov r2, #8              ; r2 : ed = 16
+        mov r2, #8              ; r2 : ed = 8
                                 ; r3 : reserved
                                 ; r4 : 나누어지는 수
                                 ; r5 : 나누는 수
