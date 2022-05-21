@@ -53,7 +53,7 @@ void func2()
 NEXT_STAGE:
 	scanf("%d", &m);
 	int st = 0;
-	int ed = 9;
+	int ed = 8;
 	int md = 0;
 	goto BINARY;
 
@@ -61,7 +61,7 @@ SCAN_LOOP:
 	scanf("%d", &n);
 	num[i] = n;
 	i = i + 1;
-	if (i == 10) {
+	if (i == 9) {
 		goto NEXT_STAGE;
 	}
 	goto SCAN_LOOP;
