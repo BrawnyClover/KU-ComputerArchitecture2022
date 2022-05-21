@@ -80,7 +80,7 @@ greedy_calc_loop
         b finish_fail   ; 더 이상 연산이 불가하므로 -1 출력 후 종료
 
 renew_dest
-        mov r3, r11     ; m = m % r5
+        mov r3, r11     ; m = m / r5
         b greedy_calc_loop ; 루프로 복귀
 
 finish_fail
